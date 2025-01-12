@@ -1,0 +1,101 @@
+#include <iostream>
+
+using namespace std;
+
+void rysuj_plansza(char plansza[3][3])
+{
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++)
+        {
+            cout << plansza[i][j] << " | ";
+        }
+        cout << endl;
+        if (i < 2)
+        {
+            cout << "-----------" << endl; 
+        }
+    }
+}
+
+bool wygrana (char plansza[3][3] , char obecnyGracz)
+{
+    for (int i = 0; i < 3; i++) 
+    {
+        if (plansza [i][0] == obecnyGracz && plansza [i][1] == obecnyGracz && plansza [i][2] == obecnyGracz)
+            return true; 
+        if (plansza [0][i] == obecnyGracz && plansza [1][i] == obecnyGracz && plansza [2][i] == obecnyGracz)
+            return true; 
+    }
+    if (plansza  [0][0] == obecnyGracz && plansza [1][1] == obecnyGracz && plansza [2][2] == obecnyGracz)
+        return true;
+    if (plansza  [2][0] == obecnyGracz && plansza [1][1] == obecnyGracz && plansza [0][2] == obecnyGracz)
+        return true;
+    return false;
+}
+bool pelnaPlansza (char plansza[3][3])
+{
+    for (int i = 0; i < 3; i++ )
+    {
+        for (int j = 0; j < 3; j++)
+            if (plansza[i][j] != 'X' && plansza[i][j] != 'Y')
+            {
+                return false;
+            }
+    }
+    return true;
+}
+
+
+int main()
+{
+    char plansza[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+
+    rysuj_plansza(plansza);
+
+    int pole;
+    char obecnyGracz = 'X';
+
+    while (!wygrana(plansza, obecnyGracz) && !pelnaPlansza(plansza)) 
+    {
+        cout << "Gracz " << obecnyGracz << " podaj numer pola" << endl;
+        cin >> pole;
+        cout << "Zaznaczyłes pole nr: " << pole << endl;
+
+        if ( pole < 1 || pole > 9)
+        {
+            cout << "Nieprawidlowy numer pola." << endl; // DODAĆ DOSTEPNE NUMERY POLA
+            continue;
+        }
+
+        char *p = &plansza[0][0]; 
+        if (pole >= 1 && pole <= 9) { 
+            if (*(p + (pole - 1)) == 'X' || *(p + (pole - 1)) == 'Y')
+            {
+                cout << "To pole jest juz zajete. Wybierz inne." << endl;
+                continue;
+            }
+            *(p + (pole - 1)) = obecnyGracz; 
+
+            cout << "Zaktualizowana plansza:" << endl;
+            rysuj_plansza(plansza);
+            if (wygrana(plansza, obecnyGracz))
+            {
+                cout<< "Gracz " << obecnyGracz << " wygral!" << endl;
+                break;
+            }
+            else if (pelnaPlansza(plansza))
+            {
+                cout <<"Gra nieroztrzygnieta." << endl;
+                break;
+            }
+        }
+        obecnyGracz = (obecnyGracz == 'X') ? 'Y' : 'X';
+    }
+
+    cin.ignore();
+
+    cout <<"Nacisnij Enter, aby zamknac program";
+    cin.get();
+    return 0;
+}
+

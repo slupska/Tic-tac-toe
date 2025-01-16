@@ -63,7 +63,7 @@ int main()
 
         if ( pole < 1 || pole > 9)
         {
-            cout << "Nieprawidlowy numer pola." << endl; // DODAĆ DOSTEPNE NUMERY POLA
+            cout << "Nieprawidlowy numer pola." << endl; 
             continue;
         }
 

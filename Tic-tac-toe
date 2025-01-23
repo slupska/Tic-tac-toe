@@ -12,19 +12,19 @@ void rysuj_plansza(char plansza[3][3])
         cout << endl;
         if (i < 2)
         {
-            cout << "-----------" << endl; 
+            cout << "-----------" << endl;
         }
     }
 }
 
 bool wygrana (char plansza[3][3] , char obecnyGracz)
 {
-    for (int i = 0; i < 3; i++) 
+    for (int i = 0; i < 3; i++)
     {
         if (plansza [i][0] == obecnyGracz && plansza [i][1] == obecnyGracz && plansza [i][2] == obecnyGracz)
-            return true; 
+            return true;
         if (plansza [0][i] == obecnyGracz && plansza [1][i] == obecnyGracz && plansza [2][i] == obecnyGracz)
-            return true; 
+            return true;
     }
     if (plansza  [0][0] == obecnyGracz && plansza [1][1] == obecnyGracz && plansza [2][2] == obecnyGracz)
         return true;
@@ -55,7 +55,7 @@ int main()
     int pole;
     char obecnyGracz = 'X';
 
-    while (!wygrana(plansza, obecnyGracz) && !pelnaPlansza(plansza)) 
+    while (!wygrana(plansza, obecnyGracz) && !pelnaPlansza(plansza))
     {
         cout << "Gracz " << obecnyGracz << " podaj numer pola" << endl;
         cin >> pole;
@@ -63,18 +63,16 @@ int main()
 
         if ( pole < 1 || pole > 9)
         {
-            cout << "Nieprawidlowy numer pola." << endl; 
+            cout << "Nieprawidlowy numer pola." << endl;
             continue;
         }
 
-        char *p = &plansza[0][0]; 
-        if (pole >= 1 && pole <= 9) { 
-            if (*(p + (pole - 1)) == 'X' || *(p + (pole - 1)) == 'Y')
+        if (plansza [(pole-1)/3] [(pole-1)%3] == 'X' || plansza[(pole-1)/3] [(pole-1)%3] == 'Y')
             {
                 cout << "To pole jest juz zajete. Wybierz inne." << endl;
                 continue;
             }
-            *(p + (pole - 1)) = obecnyGracz; 
+            plansza [(pole-1)/3] [(pole-1)%3] = obecnyGracz;
 
             cout << "Zaktualizowana plansza:" << endl;
             rysuj_plansza(plansza);
@@ -88,7 +86,7 @@ int main()
                 cout <<"Gra nieroztrzygnieta." << endl;
                 break;
             }
-        }
+
         obecnyGracz = (obecnyGracz == 'X') ? 'Y' : 'X';
     }
 

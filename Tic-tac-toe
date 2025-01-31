@@ -38,9 +38,7 @@ bool pelnaPlansza (char plansza[3][3])
     {
         for (int j = 0; j < 3; j++)
             if (plansza[i][j] != 'X' && plansza[i][j] != 'Y')
-            {
                 return false;
-            }
     }
     return true;
 }
@@ -81,13 +79,13 @@ int main()
                 cout<< "Gracz " << obecnyGracz << " wygral!" << endl;
                 break;
             }
-            else if (pelnaPlansza(plansza))
+            if (pelnaPlansza(plansza))
             {
                 cout <<"Gra nieroztrzygnieta." << endl;
                 break;
             }
 
-        obecnyGracz = (obecnyGracz == 'X') ? 'Y' : 'X';
+        obecnyGracz = (obecnyGracz == 'X' ? 'Y' : 'X');
     }
 
     cin.ignore();
